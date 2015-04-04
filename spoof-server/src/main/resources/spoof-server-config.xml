@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="spoofServer" class="uk.co.icecreamhead.spoof.server.JsonSpoofServer">
+        <property name="gameConfig">
+            <bean class="uk.co.icecreamhead.spoof.game.GameConfig">
+                <property name="maxCoins" value="3"/>
+            </bean>
+        </property>
+        <property name="serverConfig">
+            <bean class="uk.co.icecreamhead.spoof.server.ServerConfig">
+                <property name="port" value="12345"/>
+            </bean>
+        </property>
+    </bean>
+</beans>
