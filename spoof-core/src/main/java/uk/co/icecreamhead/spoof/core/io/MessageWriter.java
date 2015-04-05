@@ -1,6 +1,7 @@
-package uk.co.icecreamhead.spoof.core.message;
+package uk.co.icecreamhead.spoof.core.io;
 
 import com.cedarsoftware.util.io.JsonWriter;
+import uk.co.icecreamhead.spoof.core.message.Message;
 
 import java.io.OutputStream;
 

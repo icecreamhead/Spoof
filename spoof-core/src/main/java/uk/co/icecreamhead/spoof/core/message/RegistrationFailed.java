@@ -5,18 +5,18 @@ import uk.co.icecreamhead.spoof.core.handler.MessageHandler;
 /**
  * Created with IntelliJ IDEA.
  * User: joshcooke
- * Date: 03/04/15
- * Time: 22:19
+ * Date: 05/04/15
+ * Time: 20:30
  */
-public class Registration implements Message {
-    private final String name;
+public class RegistrationFailed implements Message {
+    private final String reason;
 
-    public Registration(String name) {
-        this.name = name;
+    public RegistrationFailed(String reason) {
+        this.reason = reason;
     }
 
-    public String getName() {
-        return name;
+    public String getReason() {
+        return reason;
     }
 
     @Override

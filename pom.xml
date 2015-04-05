@@ -34,8 +34,15 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.4.2</version>
+            <version>1.7.5</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -66,6 +73,19 @@
             <artifactId>spring</artifactId>
             <version>2.5.2</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.j256.simplejmx</groupId>
+            <artifactId>simplejmx</artifactId>
+            <version>1.12</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty.aggregate</groupId>
+            <artifactId>jetty-all-server</artifactId>
+            <version>7.5.0.v20110901</version>
+        </dependency>
+
     </dependencies>
 
     <build>

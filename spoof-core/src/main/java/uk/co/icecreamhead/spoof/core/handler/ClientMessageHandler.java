@@ -1,7 +1,9 @@
 package uk.co.icecreamhead.spoof.core.handler;
 
 import uk.co.icecreamhead.spoof.core.message.CoinRequest;
-import uk.co.icecreamhead.spoof.core.message.MessageWriter;
+import uk.co.icecreamhead.spoof.core.io.MessageWriter;
+import uk.co.icecreamhead.spoof.core.message.RegistrationAccepted;
+import uk.co.icecreamhead.spoof.core.message.RegistrationFailed;
 import uk.co.icecreamhead.spoof.core.player.Player;
 
 /**
@@ -10,7 +12,7 @@ import uk.co.icecreamhead.spoof.core.player.Player;
  * Date: 03/04/15
  * Time: 21:49
  */
-public class ClientMessageHandler extends AbstractMessageHandler {
+public class ClientMessageHandler extends MessageHandlerBase {
     private final Player player;
     private final MessageWriter writer;
 
@@ -24,4 +26,13 @@ public class ClientMessageHandler extends AbstractMessageHandler {
         writer.write(player.chooseNumCoins());
     }
 
+    @Override
+    public void handle(RegistrationFailed registrationFailed) {
+        super.handle(registrationFailed);
+    }
+
+    @Override
+    public void handle(RegistrationAccepted registrationAccepted) {
+        super.handle(registrationAccepted);
+    }
 }

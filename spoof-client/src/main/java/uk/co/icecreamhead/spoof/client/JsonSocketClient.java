@@ -3,10 +3,10 @@ package uk.co.icecreamhead.spoof.client;
 import com.cedarsoftware.util.io.JsonReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.co.icecreamhead.spoof.core.handler.AbstractMessageHandler;
 import uk.co.icecreamhead.spoof.core.handler.ClientMessageHandler;
+import uk.co.icecreamhead.spoof.core.handler.MessageHandlerBase;
 import uk.co.icecreamhead.spoof.core.message.Message;
-import uk.co.icecreamhead.spoof.core.message.MessageWriter;
+import uk.co.icecreamhead.spoof.core.io.MessageWriter;
 import uk.co.icecreamhead.spoof.core.message.Registration;
 import uk.co.icecreamhead.spoof.core.player.Player;
 
@@ -33,20 +33,21 @@ public class JsonSocketClient implements Runnable {
 
     @Override
     public void run() {
-        logger.info("Connecting '"+player.getName()+"' to "+hostname+":"+port+".");
-        AbstractMessageHandler handler;
+        logger.info("Launched client. Attempting connection to "+hostname+":"+port+".");
+        MessageHandlerBase handler;
         try {
             sock = new Socket();
             sock.connect(new InetSocketAddress(hostname, port));
             reader = new JsonReader(sock.getInputStream());
             messageWriter = new MessageWriter(sock.getOutputStream());
             handler = new ClientMessageHandler(player, messageWriter);
-            logger.info("Connected");
+            logger.info("Connected!");
         } catch (IOException e) {
             logger.error("Failed to launch Spoof player", e);
             return;
         }
 
+        logger.info("Sending registration for player '"+player.getName()+"'.");
         messageWriter.write(new Registration(player.getName()));
 
         while (!Thread.interrupted()) {
