@@ -9,6 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <name>Spoof Client</name>
     <artifactId>client</artifactId>
 
     <dependencies>
