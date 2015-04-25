@@ -8,7 +8,7 @@ import uk.co.icecreamhead.spoof.core.handler.MessageHandlerBase;
 import uk.co.icecreamhead.spoof.core.message.Message;
 import uk.co.icecreamhead.spoof.core.io.MessageWriter;
 import uk.co.icecreamhead.spoof.core.message.Registration;
-import uk.co.icecreamhead.spoof.core.player.Player;
+import uk.co.icecreamhead.spoof.core.player.PlayerStrategy;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -22,7 +22,7 @@ import java.net.Socket;
  */
 public class JsonSocketClient implements Runnable {
     private static final Logger logger = LoggerFactory.getLogger(JsonSocketClient.class);
-    private Player player;
+    private PlayerStrategy playerStrategy;
     private Socket sock;
     private JsonReader reader;
     private MessageWriter messageWriter;
@@ -40,15 +40,15 @@ public class JsonSocketClient implements Runnable {
             sock.connect(new InetSocketAddress(hostname, port));
             reader = new JsonReader(sock.getInputStream());
             messageWriter = new MessageWriter(sock.getOutputStream());
-            handler = new ClientMessageHandler(player, messageWriter);
+            handler = new ClientMessageHandler(playerStrategy, messageWriter);
             logger.info("Connected!");
         } catch (IOException e) {
             logger.error("Failed to launch Spoof player", e);
             return;
         }
 
-        logger.info("Sending registration for player '"+player.getName()+"'.");
-        messageWriter.write(new Registration(player.getName()));
+        logger.info("Sending registration for player '"+ playerStrategy.getName()+"'.");
+        messageWriter.write(new Registration(playerStrategy.getName()));
 
         while (!Thread.interrupted()) {
             Message message = (Message) reader.readObject();
@@ -56,12 +56,12 @@ public class JsonSocketClient implements Runnable {
         }
     }
 
-    public Player getPlayer() {
-        return player;
+    public PlayerStrategy getPlayerStrategy() {
+        return playerStrategy;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setPlayerStrategy(PlayerStrategy playerStrategy) {
+        this.playerStrategy = playerStrategy;
     }
 
     public void setHostname(String hostname) {

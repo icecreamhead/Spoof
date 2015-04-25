@@ -20,4 +20,6 @@ public interface MessageHandler {
     public void handle(RegistrationAccepted registrationAccepted);
 
     public void handle(Guess guess);
+
+    public void handle(GameSetup gameSetup);
 }

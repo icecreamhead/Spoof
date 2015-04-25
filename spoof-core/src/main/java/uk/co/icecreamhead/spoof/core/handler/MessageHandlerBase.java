@@ -29,7 +29,11 @@ public abstract class MessageHandlerBase implements MessageHandler {
 
     public void handle(Guess guess) {log(guess);}
 
+    public void handle(GameSetup gameSetup) {
+        log(gameSetup);
+    }
+
     private void log(Message message) {
-        logger.error("Received unhandled message: "+message);
+        logger.error("Received unhandled message: {}", message);
     }
 }

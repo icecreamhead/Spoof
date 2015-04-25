@@ -4,7 +4,7 @@ import uk.co.icecreamhead.spoof.core.message.CoinRequest;
 import uk.co.icecreamhead.spoof.core.io.MessageWriter;
 import uk.co.icecreamhead.spoof.core.message.RegistrationAccepted;
 import uk.co.icecreamhead.spoof.core.message.RegistrationFailed;
-import uk.co.icecreamhead.spoof.core.player.Player;
+import uk.co.icecreamhead.spoof.core.player.PlayerStrategy;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,17 +13,17 @@ import uk.co.icecreamhead.spoof.core.player.Player;
  * Time: 21:49
  */
 public class ClientMessageHandler extends MessageHandlerBase {
-    private final Player player;
+    private final PlayerStrategy playerStrategy;
     private final MessageWriter writer;
 
-    public ClientMessageHandler(Player player, MessageWriter writer) {
-        this.player = player;
+    public ClientMessageHandler(PlayerStrategy playerStrategy, MessageWriter writer) {
+        this.playerStrategy = playerStrategy;
         this.writer = writer;
     }
 
     @Override
     public void handle(CoinRequest coinRequest) {
-        writer.write(player.chooseNumCoins());
+        writer.write(playerStrategy.chooseNumCoins());
     }
 
     @Override

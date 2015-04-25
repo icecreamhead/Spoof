@@ -3,6 +3,11 @@ package uk.co.icecreamhead.spoof.game;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.co.icecreamhead.spoof.core.io.MessageWriter;
+import uk.co.icecreamhead.spoof.core.message.CoinRequest;
+import uk.co.icecreamhead.spoof.core.message.RegistrationAccepted;
+import uk.co.icecreamhead.spoof.core.message.RegistrationFailed;
+import uk.co.icecreamhead.spoof.core.player.Player;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,23 +21,27 @@ import java.util.Set;
 public class Game {
     private final Logger logger = LoggerFactory.getLogger(Game.class);
     private final GameConfig config;
-    private final Set<String> registeredPlayers = new HashSet<String>();
+    private final Set<Player> registeredPlayers = new HashSet<Player>();
 
     public Game(GameConfig config) {
         this.config = config;
     }
 
-    public MessageResult registerPlayer(String player) {
-        if (registeredPlayers.contains(player)) {
-            return new MessageResult("Player name '"+player+"' is already in use. Please register with a different name.", MessageResult.Status.FAIL);
+    public void registerPlayer(String player, MessageWriter writer) {
+        if (registeredPlayers.add(new Player(player, writer))) {
+            writer.write(new RegistrationAccepted());
+            logger.info("Registration successful.");
         } else {
-            registeredPlayers.add(player);
-            return new MessageResult("Player '"+player+"' registered successfully!", MessageResult.Status.SUCCESS);
+            writer.write(new RegistrationFailed("Player name '" + player + "' is already in use. Please register with a different name."));
+            logger.warn("Registration failed: name already in use.");
         }
     }
 
     public void start() {
         logger.info("STARTING GAME! :D");
+        for (Player player : registeredPlayers) {
+            player.send(new CoinRequest());
+        }
     }
 
 }

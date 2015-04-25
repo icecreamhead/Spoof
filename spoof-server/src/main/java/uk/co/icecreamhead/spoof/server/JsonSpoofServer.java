@@ -1,7 +1,5 @@
 package uk.co.icecreamhead.spoof.server;
 
-import com.j256.simplejmx.server.JmxServer;
-import com.j256.simplejmx.web.JmxWebServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.co.icecreamhead.spoof.game.Game;
@@ -20,8 +18,6 @@ import java.net.Socket;
  */
 public class JsonSpoofServer implements Runnable {
     private final Logger logger = LoggerFactory.getLogger(JsonSpoofServer.class);
-    private final JmxServer jmxServer = new JmxServer(8000);
-    private final JmxWebServer jmxWebServer = new JmxWebServer(8080);
 
     private GameConfig gameConfig;
     private ServerConfig serverConfig;
@@ -42,16 +38,6 @@ public class JsonSpoofServer implements Runnable {
         Gui gui = new Gui(game);
         gui.launch();
 
-        /*try {
-            jmxServer.start();
-            jmxWebServer.start();
-            jmxServer.register(game);
-        } catch (JMException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
-
         while (!Thread.interrupted()) {
             try {
                 Socket sock = serverSocket.accept();
@@ -64,13 +50,6 @@ public class JsonSpoofServer implements Runnable {
             }
 
         }
-
-        /*jmxServer.stop();
-        try {
-            jmxWebServer.stop();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }*/
     }
 
     public void setGameConfig(GameConfig gameConfig) {

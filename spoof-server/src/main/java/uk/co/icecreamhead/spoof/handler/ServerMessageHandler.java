@@ -5,10 +5,7 @@ import org.slf4j.LoggerFactory;
 import uk.co.icecreamhead.spoof.core.handler.MessageHandlerBase;
 import uk.co.icecreamhead.spoof.core.io.MessageWriter;
 import uk.co.icecreamhead.spoof.core.message.Registration;
-import uk.co.icecreamhead.spoof.core.message.RegistrationAccepted;
-import uk.co.icecreamhead.spoof.core.message.RegistrationFailed;
 import uk.co.icecreamhead.spoof.game.Game;
-import uk.co.icecreamhead.spoof.game.MessageResult;
 
 /**
  * Created with IntelliJ IDEA.
@@ -30,17 +27,6 @@ public class ServerMessageHandler extends MessageHandlerBase {
     public void handle(Registration registration) {
         String playerName = registration.getName();
         logger.info("Received registration request for '"+registration.getName()+"'.");
-        MessageResult result = game.registerPlayer(playerName);
-        switch (result.getStatus()) {
-            case SUCCESS:
-                logger.info("Registration successful");
-                writer.write(new RegistrationAccepted());
-                break;
-
-            case FAIL:
-                logger.info("Registration failed: "+result.getMessage());
-                writer.write(new RegistrationFailed(result.getMessage()));
-                break;
-        }
+        game.registerPlayer(playerName, writer);
     }
 }

@@ -15,7 +15,7 @@ public class LaunchClient {
 
         JsonSocketClient socketClient = (JsonSocketClient) context.getBean("socketClient");
 
-        Thread clientThread = new Thread(socketClient, socketClient.getPlayer().getName());
+        Thread clientThread = new Thread(socketClient, socketClient.getPlayerStrategy().getName());
         clientThread.start();
     }
 }

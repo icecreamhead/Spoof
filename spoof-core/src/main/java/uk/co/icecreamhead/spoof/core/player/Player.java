@@ -1,18 +1,38 @@
 package uk.co.icecreamhead.spoof.core.player;
 
-import uk.co.icecreamhead.spoof.core.message.Guess;
-import uk.co.icecreamhead.spoof.core.message.NumCoins;
+import uk.co.icecreamhead.spoof.core.io.MessageWriter;
+import uk.co.icecreamhead.spoof.core.message.Message;
 
 /**
- * Implement this interface with your Spoof player's strategy
+ * Created with IntelliJ IDEA.
+ * User: joshcooke
+ * Date: 19/04/15
+ * Time: 17:12
  */
-public interface Player {
+public class Player {
+    private final String name;
+    private final MessageWriter writer;
 
-    public String getName();
-    public NumCoins chooseNumCoins();
-    public Guess announceGuess();
+    public Player(String name, MessageWriter writer) {
+        this.name = name;
+        this.writer = writer;
+    }
 
-    public void hearOtherGuess(String player, Guess guess);
-    public void winner(String winningPlayer);
+    public void send(Message message) {
+        writer.write(message);
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Player && this.name.equals(((Player) obj).getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
 }
