@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.co.icecreamhead.spoof.core.handler.MessageHandlerBase;
 import uk.co.icecreamhead.spoof.core.io.MessageWriter;
-import uk.co.icecreamhead.spoof.core.message.Registration;
 import uk.co.icecreamhead.spoof.game.Game;
+import uk.co.icecreamhead.spoof.core.message.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -29,4 +29,10 @@ public class ServerMessageHandler extends MessageHandlerBase {
         logger.info("Received registration request for '"+registration.getName()+"'.");
         game.registerPlayer(playerName, writer);
     }
+    
+    @Override
+    public void handle(NumCoins numCoins) {
+        
+    }
+    
 }

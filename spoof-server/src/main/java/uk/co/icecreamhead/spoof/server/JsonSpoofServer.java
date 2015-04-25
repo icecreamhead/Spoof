@@ -21,6 +21,8 @@ public class JsonSpoofServer implements Runnable {
 
     private GameConfig gameConfig;
     private ServerConfig serverConfig;
+    
+    private boolean startGui = true;
 
     @Override
     public void run() {
@@ -35,8 +37,10 @@ public class JsonSpoofServer implements Runnable {
 
         logger.info("Successfully launched Spoof server! Listening for players on port "+serverConfig.getPort());
 
-        Gui gui = new Gui(game);
-        gui.launch();
+        if (startGui) {
+            Gui gui = new Gui(game);
+            gui.launch();
+        }
 
         while (!Thread.interrupted()) {
             try {
@@ -58,5 +62,9 @@ public class JsonSpoofServer implements Runnable {
 
     public void setServerConfig(ServerConfig serverConfig) {
         this.serverConfig = serverConfig;
+    }
+    
+    public void setStartGui(boolean startGui) {
+        this.startGui = startGui;
     }
 }
