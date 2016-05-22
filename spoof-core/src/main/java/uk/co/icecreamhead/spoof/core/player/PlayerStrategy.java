@@ -9,12 +9,12 @@ import uk.co.icecreamhead.spoof.core.message.NumCoins;
  */
 public interface PlayerStrategy {
 
-    public String getName();
-    public NumCoins chooseNumCoins();
-    public Guess announceGuess();
+    String getName();
+    NumCoins chooseNumCoins();
+    Guess announceGuess();
 
-    public void hearOtherGuess(String player, Guess guess);
-    public void loser(String losingPlayer);
-    public void rules(Rules rules);
+    void hearOtherGuess(String player, Guess guess);
+    void loser(String losingPlayer);
+    void rules(Rules rules);
 
 }

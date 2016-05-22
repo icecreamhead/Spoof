@@ -2,6 +2,8 @@ package uk.co.icecreamhead.spoof.core.message;
 
 import uk.co.icecreamhead.spoof.core.handler.MessageHandler;
 
+import java.net.SocketAddress;
+
 /**
  * Created with IntelliJ IDEA.
  * User: joshcooke
@@ -20,7 +22,14 @@ public class Registration implements Message {
     }
 
     @Override
-    public void handle(MessageHandler handler) {
-        handler.handle(this);
+    public void handle(MessageHandler handler, SocketAddress address) {
+        handler.handle(this, address);
+    }
+
+    @Override
+    public String toString() {
+        return "Registration{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }

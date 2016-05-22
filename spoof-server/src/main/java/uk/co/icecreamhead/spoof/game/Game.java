@@ -9,6 +9,7 @@ import uk.co.icecreamhead.spoof.core.message.RegistrationAccepted;
 import uk.co.icecreamhead.spoof.core.message.RegistrationFailed;
 import uk.co.icecreamhead.spoof.core.player.Player;
 
+import java.net.SocketAddress;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,13 +28,14 @@ public class Game {
         this.config = config;
     }
 
-    public void registerPlayer(String player, MessageWriter writer) {
-        if (registeredPlayers.add(new Player(player, writer))) {
-            writer.write(new RegistrationAccepted());
+    public void registerPlayer(String playerName, SocketAddress address, MessageWriter writer) {
+        Player player = new Player(playerName, address, writer);
+        if (registeredPlayers.add(player)) {
+            player.send(new RegistrationAccepted());
             logger.info("Registration successful.");
         } else {
-            writer.write(new RegistrationFailed("Player name '" + player + "' is already in use. Please register with a different name."));
-            logger.warn("Registration failed: name already in use.");
+            player.send(new RegistrationFailed("Player '" + player + "' is already defined. Please register with a different name."));
+            logger.warn("Registration failed: player already connected.");
         }
     }
 

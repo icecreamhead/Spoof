@@ -2,6 +2,8 @@ package uk.co.icecreamhead.spoof.core.message;
 
 import uk.co.icecreamhead.spoof.core.handler.MessageHandler;
 
+import java.net.SocketAddress;
+
 /**
  * Created with IntelliJ IDEA.
  * User: joshcooke
@@ -9,5 +11,5 @@ import uk.co.icecreamhead.spoof.core.handler.MessageHandler;
  * Time: 21:26
  */
 public interface Message {
-    public void handle(MessageHandler handler);
+    void handle(MessageHandler handler, SocketAddress address);
 }

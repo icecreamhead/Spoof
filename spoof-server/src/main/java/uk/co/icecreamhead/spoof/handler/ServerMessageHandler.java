@@ -7,6 +7,8 @@ import uk.co.icecreamhead.spoof.core.io.MessageWriter;
 import uk.co.icecreamhead.spoof.game.Game;
 import uk.co.icecreamhead.spoof.core.message.*;
 
+import java.net.SocketAddress;
+
 /**
  * Created with IntelliJ IDEA.
  * User: joshcooke
@@ -24,14 +26,14 @@ public class ServerMessageHandler extends MessageHandlerBase {
     }
 
     @Override
-    public void handle(Registration registration) {
+    public void handle(Registration registration, SocketAddress client) {
         String playerName = registration.getName();
-        logger.info("Received registration request for '"+registration.getName()+"'.");
-        game.registerPlayer(playerName, writer);
+        logger.info("Received registration request for "+registration.getName()+"@"+client+".");
+        game.registerPlayer(playerName, client, writer);
     }
     
     @Override
-    public void handle(NumCoins numCoins) {
+    public void handle(NumCoins numCoins, SocketAddress client) {
         
     }
     

@@ -23,7 +23,7 @@ public class MessageResult {
         return status;
     }
 
-    public static enum Status {
+    public enum Status {
         SUCCESS,
         FAIL
     }

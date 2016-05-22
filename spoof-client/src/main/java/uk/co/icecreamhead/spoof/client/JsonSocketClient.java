@@ -1,5 +1,6 @@
 package uk.co.icecreamhead.spoof.client;
 
+import com.cedarsoftware.util.io.JsonIoException;
 import com.cedarsoftware.util.io.JsonReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,8 +52,13 @@ public class JsonSocketClient implements Runnable {
         messageWriter.write(new Registration(playerStrategy.getName()));
 
         while (!Thread.interrupted()) {
-            Message message = (Message) reader.readObject();
-            message.handle(handler);
+            try {
+                Message message = (Message) reader.readObject();
+                message.handle(handler, sock.getRemoteSocketAddress());
+            } catch (JsonIoException ex) {
+                logger.error("Spoof server disconnected! Exiting...");
+                break;
+            }
         }
     }
 

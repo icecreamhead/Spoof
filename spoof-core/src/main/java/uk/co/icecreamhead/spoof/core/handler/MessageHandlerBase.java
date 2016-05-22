@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.co.icecreamhead.spoof.core.message.*;
 
+import java.net.SocketAddress;
+
 /**
  * Created with IntelliJ IDEA.
  * User: joshcooke
@@ -13,23 +15,30 @@ import uk.co.icecreamhead.spoof.core.message.*;
 public abstract class MessageHandlerBase implements MessageHandler {
     private static final Logger logger = LoggerFactory.getLogger(MessageHandlerBase.class);
 
-    public void handle(CoinRequest coinRequest) {
+    @Override
+    public void handle(CoinRequest coinRequest, SocketAddress client) {
         log(coinRequest);
     }
 
-    public void handle(NumCoins numCoins) {
+    @Override
+    public void handle(NumCoins numCoins, SocketAddress client) {
         log(numCoins);
     }
 
-    public void handle(Registration registration) { log(registration); }
+    @Override
+    public void handle(Registration registration, SocketAddress client) { log(registration); }
 
-    public void handle(RegistrationFailed registrationFailed) {log(registrationFailed);}
+    @Override
+    public void handle(RegistrationFailed registrationFailed, SocketAddress client) {log(registrationFailed);}
 
-    public void handle(RegistrationAccepted registrationAccepted) {log(registrationAccepted);}
+    @Override
+    public void handle(RegistrationAccepted registrationAccepted, SocketAddress client) {log(registrationAccepted);}
 
-    public void handle(Guess guess) {log(guess);}
+    @Override
+    public void handle(Guess guess, SocketAddress client) {log(guess);}
 
-    public void handle(GameSetup gameSetup) {
+    @Override
+    public void handle(GameSetup gameSetup, SocketAddress client) {
         log(gameSetup);
     }
 

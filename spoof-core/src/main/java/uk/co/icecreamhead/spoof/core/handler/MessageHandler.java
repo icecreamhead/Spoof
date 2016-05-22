@@ -2,6 +2,8 @@ package uk.co.icecreamhead.spoof.core.handler;
 
 import uk.co.icecreamhead.spoof.core.message.*;
 
+import java.net.SocketAddress;
+
 /**
  * Created with IntelliJ IDEA.
  * User: joshcooke
@@ -9,17 +11,17 @@ import uk.co.icecreamhead.spoof.core.message.*;
  * Time: 21:12
  */
 public interface MessageHandler {
-    public void handle(CoinRequest coinRequest);
+    void handle(CoinRequest coinRequest, SocketAddress client); // add socket address to handler methods
 
-    public void handle(NumCoins numCoins);
+    void handle(NumCoins numCoins, SocketAddress client);
 
-    public void handle(Registration registration);
+    void handle(Registration registration, SocketAddress client);
 
-    public void handle(RegistrationFailed registrationFailed);
+    void handle(RegistrationFailed registrationFailed, SocketAddress client);
 
-    public void handle(RegistrationAccepted registrationAccepted);
+    void handle(RegistrationAccepted registrationAccepted, SocketAddress client);
 
-    public void handle(Guess guess);
+    void handle(Guess guess, SocketAddress client);
 
-    public void handle(GameSetup gameSetup);
+    void handle(GameSetup gameSetup, SocketAddress client);
 }

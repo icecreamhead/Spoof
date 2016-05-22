@@ -2,6 +2,8 @@ package uk.co.icecreamhead.spoof.core.message;
 
 import uk.co.icecreamhead.spoof.core.handler.MessageHandler;
 
+import java.net.SocketAddress;
+
 /**
  * Created with IntelliJ IDEA.
  * User: joshcooke
@@ -10,7 +12,12 @@ import uk.co.icecreamhead.spoof.core.handler.MessageHandler;
  */
 public class CoinRequest implements Message {
     @Override
-    public void handle(MessageHandler handler) {
-        handler.handle(this);
+    public void handle(MessageHandler handler, SocketAddress address) {
+        handler.handle(this, address);
+    }
+
+    @Override
+    public String toString() {
+        return "CoinRequest{}";
     }
 }
