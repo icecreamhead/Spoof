@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.co.icecreamhead.spoof.game.Game;
 import uk.co.icecreamhead.spoof.game.GameConfig;
-import uk.co.icecreamhead.spoof.gui.Gui;
+import uk.co.icecreamhead.spoof.gui.GraphGui;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -38,8 +38,10 @@ public class JsonSpoofServer implements Runnable {
         logger.info("Successfully launched Spoof server! Listening for players on port "+serverConfig.getPort());
 
         if (startGui) {
-            Gui gui = new Gui(game);
-            gui.launch();
+            GraphGui graphGui = new GraphGui(game);
+            graphGui.launch();
+            //SimpleGui gui = new SimpleGui(new GameControlListener(game));
+//            gui.setVisible(true);
         }
 
         while (!Thread.interrupted()) {

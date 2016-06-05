@@ -34,7 +34,7 @@ public class ServerMessageHandler extends MessageHandlerBase {
     
     @Override
     public void handle(NumCoins numCoins, SocketAddress client) {
-        
+        logger.info(client + " has chosen coins ("+numCoins.getNum()+")");
     }
     
 }

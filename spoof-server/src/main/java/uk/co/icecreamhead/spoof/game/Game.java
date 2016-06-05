@@ -23,6 +23,7 @@ public class Game {
     private final Logger logger = LoggerFactory.getLogger(Game.class);
     private final GameConfig config;
     private final Set<Player> registeredPlayers = new HashSet<Player>();
+    private UpdateListener listener;
 
     public Game(GameConfig config) {
         this.config = config;
@@ -32,7 +33,9 @@ public class Game {
         Player player = new Player(playerName, address, writer);
         if (registeredPlayers.add(player)) {
             player.send(new RegistrationAccepted());
+            listener.addPlayer(playerName);
             logger.info("Registration successful.");
+            listener.addMessage(playerName + " joined the game!");
         } else {
             player.send(new RegistrationFailed("Player '" + player + "' is already defined. Please register with a different name."));
             logger.warn("Registration failed: player already connected.");
@@ -41,9 +44,15 @@ public class Game {
 
     public void start() {
         logger.info("STARTING GAME! :D");
+        logger.info("Registered players are "+registeredPlayers.toString());
+        listener.addMessage("Starting game!");
         for (Player player : registeredPlayers) {
             player.send(new CoinRequest());
         }
+    }
+
+    public void setUpdateListener(UpdateListener listener) {
+        this.listener = listener;
     }
 
 }

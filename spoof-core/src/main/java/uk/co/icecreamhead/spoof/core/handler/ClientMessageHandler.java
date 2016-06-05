@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.co.icecreamhead.spoof.core.message.CoinRequest;
 import uk.co.icecreamhead.spoof.core.io.MessageWriter;
+import uk.co.icecreamhead.spoof.core.message.NumCoins;
 import uk.co.icecreamhead.spoof.core.message.RegistrationAccepted;
 import uk.co.icecreamhead.spoof.core.message.RegistrationFailed;
 import uk.co.icecreamhead.spoof.core.player.PlayerStrategy;
@@ -28,7 +29,10 @@ public class ClientMessageHandler extends MessageHandlerBase {
 
     @Override
     public void handle(CoinRequest coinRequest, SocketAddress client) {
-        writer.write(playerStrategy.chooseNumCoins());
+        logger.info("Received request to announce guess");
+        NumCoins coins = playerStrategy.chooseNumCoins();
+        logger.info("I have chosed "+coins);
+        writer.write(coins);
     }
 
     @Override

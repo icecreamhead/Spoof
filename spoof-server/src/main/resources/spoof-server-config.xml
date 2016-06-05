@@ -6,7 +6,7 @@
     http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
     <bean id="spoofServer" class="uk.co.icecreamhead.spoof.server.JsonSpoofServer">
-        <property name="startGui" value="false"/>
+        <property name="startGui" value="true"/>
         <property name="gameConfig">
             <bean class="uk.co.icecreamhead.spoof.game.GameConfig">
                 <property name="maxCoins" value="3"/>
